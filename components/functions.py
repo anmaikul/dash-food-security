@@ -9,7 +9,7 @@ import pandas as pd
 pd.options.mode.chained_assignment = None
 
 # Read in Travel Report Data
-df = pd.read_csv('data/performance_analytics_cost_and_ga_metrics.csv')
+df = pd.read_csv('assets/data/performance_analytics_cost_and_ga_metrics.csv')
 
 df.rename(columns={
  'Travel Product': 'Placement type', 

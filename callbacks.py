@@ -17,7 +17,7 @@ from components.functions import update_first_datatable, update_first_download, 
 pd.options.mode.chained_assignment = None
 
 # Read in Travel Report Data
-df = pd.read_csv('data/performance_analytics_cost_and_ga_metrics.csv')
+df = pd.read_csv('assets/data/performance_analytics_cost_and_ga_metrics.csv')
 
 df.rename(columns={
  'Travel Product': 'Placement type', 
@@ -61,6 +61,59 @@ dt_columns_total = ['Placement type', 'Spend TY', 'Spend - LP', 'Spend PoP (Abs)
 'Sessions_PoP_percent_conditional', 'Sessions_YoY_percent_conditional', 
 'Bookings_PoP_abs_conditional', 'Bookings_YoY_abs_conditional', 'Bookings_PoP_percent_conditional', 'Bookings_YoY_percent_conditional',
 'Revenue_PoP_abs_conditional', 'Revenue_YoY_abs_conditional', 'Revenue_PoP_percent_conditional', 'Revenue_YoY_percent_conditional',]
+
+
+## choropleth map layout
+
+mapbox_access_token = "pk.eyJ1IjoiamFja3AiLCJhIjoidGpzN0lXVSJ9.7YK6eRwUNFwd3ODZff6JvA"
+
+stores_df = pd.read_csv('assets/data/stores.csv')
+
+BINS = ['0-2', '2.1-4', '4.1-6', '6.1-8', '8.1-10', '10.1-12', '12.1-14', \
+		'14.1-16', '16.1-18', '18.1-20', '20.1-22', '22.1-24',  '24.1-26', \
+		'26.1-28', '28.1-30', '>30']
+
+DEFAULT_COLORSCALE = ["#2a4858", "#265465", "#1e6172", "#106e7c", "#007b84", \
+	"#00898a", "#00968e", "#19a390", "#31b08f", "#4abd8c", "#64c988", \
+	"#80d482", "#9cdf7c", "#bae976", "#d9f271", "#fafa6e"]
+
+# data = [dict(type='scattermapbox',
+#     lat=[0],
+#     lon=[0],
+#     mode='markers',
+#     marker=dict(size=0.5, color='#a490bd'),
+#     showscale=True,
+#     autocolorscale=False,
+#     color=range(0,101),
+#     colorscale=DEFAULT_COLORSCALE
+# )]
+
+# layout = dict(
+#     mapbox = dict(
+#         layers = [],
+#         accesstoken = mapbox_access_token,
+#         style = 'light',
+#         center=dict(lat=38.72490, lon=-95.61446),
+#         zoom=2.5
+#     ),
+#     hovermode = 'closest',
+#     margin = dict(r=0, l=0, t=0, b=0),
+#     dragmode = 'lasso'
+# )
+
+# # for bin in BINS:
+# geo_layer = dict(
+#     sourcetype = 'geojson',
+#     source = 'data/gz_2010_us_050_00_500k.json'
+#     type = 'fill',
+#     color = "#19a390", # cm[bin]
+#     opacity = opacity
+# )
+# layout['mapbox']['layers'].append(geo_layer)
+
+# fig = dict(data=data, layout=layout)
+
+
 
 ######################## Paid Search Callbacks ######################## 
 

@@ -6,9 +6,11 @@ from datetime import datetime as dt
 from datetime import date, timedelta
 import pandas as pd
 
+import plotly.graph_objs as go
+
 
 # Read in Travel Report Data
-df = pd.read_csv('data/performance_analytics_cost_and_ga_metrics.csv')
+df = pd.read_csv('assets/data/performance_analytics_cost_and_ga_metrics.csv')
 
 df.rename(columns={
  'Travel Product': 'Placement type', 
@@ -59,7 +61,83 @@ conditional_columns_calculated_calculated = ['CPS_PoP_abs_conditional', 'CPS_PoP
 'CVR_PoP_abs_conditional', 'CVR_PoP_percent_conditional', 'CVR_YoY_abs_conditional', 'CVR_YoY_percent_conditional',
 'CPA_PoP_abs_conditional', 'CPA_PoP_percent_conditional', 'CPA_YoY_abs_conditional', 'CPA_YoY_percent_conditional']
 
+DEFAULT_COLORSCALE = ["#2a4858", "#265465", "#1e6172", "#106e7c", "#007b84", \
+	"#00898a", "#00968e", "#19a390", "#31b08f", "#4abd8c", "#64c988", \
+	"#80d482", "#9cdf7c", "#bae976", "#d9f271", "#fafa6e"]
 
+mapbox_access_token = "pk.eyJ1IjoiamFja3AiLCJhIjoidGpzN0lXVSJ9.7YK6eRwUNFwd3ODZff6JvA"
+
+
+# layout_county_choropleth = html.Div([
+#     dcc.Graph(
+# 			id ='county-choropleth',
+# 			figure=dict(
+# 				data=dict(
+#                     type='scattermapbox',
+#                     lat=[0],
+#                     lon=[0],
+#                     mode='markers',
+#                     marker=dict(size=0.5, color='#a490bd'),
+#                     showscale=True,
+#                     autocolorscale=False,
+#                     color=range(0,101),
+#                     # colorscale=DEFAULT_COLORSCALE
+# 				),
+#                 layout=dict(
+#                     mapbox=dict(
+#                         layers=[
+#                             dict(
+#                                 sourcetpye='geojson',
+#                                 source='data/gz_2010_us_050_00_500k.json',
+#                                 type='fill',
+#                                 color='rgba(163,22,19,0.8)'
+#                             )
+#                         ],
+#                         accesstoken=mapbox_access_token,
+#                         style='light',
+#                         center=dict(lat=38.72490, lon=-95.61446),
+#                         zoom=2.5
+#                     ),
+#                     hovermode='closest',
+#                     margin=dict(r=0, l=0, t=0, b=0),
+#                     dragmode='lasso'
+#                 )
+# 			)
+# 		)
+# ])
+
+data = go.Data([
+    go.Scattermapbox(
+        lat=[0],
+        lon=[0],
+        mode='markers',
+    )
+])
+layout = go.Layout(
+    mapbox=dict(
+        layers=[
+            dict(
+                sourcetype='geojson',
+                source='/assets/data/gz_2010_us_050_00_500k.json',
+                type='fill',
+                color='rgba(163,22,19,0.7)'
+            )
+        ],
+        accesstoken=mapbox_access_token,
+        style='dark',
+        center=dict(lat=38.72490, lon=-95.61446),
+        zoom=2.5
+    ),
+    hovermode='closest',
+    margin=dict(r=0, l=0, t=0, b=0),
+    # dragmode='lasso'
+)
+
+fig = go.Figure(data=data, layout=layout)
+
+layout_county_choropleth = html.Div([
+    dcc.Graph(id='county_choropleth', figure=fig)
+])
 
 ######################## START Paid Search Layout ########################
 layout_paid_search =  html.Div([

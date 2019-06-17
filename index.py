@@ -6,7 +6,7 @@ from dash.dependencies import Input, Output
 from app import server
 from app import app
 # from layouts import layout_birst_category, layout_ga_category, layout_paid_search, noPage, layout_display, layout_publishing, layout_metasearch
-from layouts import layout_paid_search
+from layouts import layout_paid_search, layout_county_choropleth
 import callbacks
 
 # see https://dash.plot.ly/external-resources to alter header, footer and favicon
@@ -58,6 +58,8 @@ def display_page(pathname):
 
     if pathname == '/cc-travel-report/paid-search/':
         return layout_paid_search
+    elif pathname == '/cc-travel-report/county-choropleth/':
+        return layout_county_choropleth
     else:
         return noPage
 
